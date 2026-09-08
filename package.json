@@ -1,0 +1,16 @@
+{
+  "name": "mobby-r2b-chat",
+  "version": "1.0.0",
+  "description": "MOBBY R2B キャンピングカー利用サポートチャット（サーバー版）",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
