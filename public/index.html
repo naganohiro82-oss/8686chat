@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOBBY R2B 利用サポートチャット</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest: #2B3B2E;
+    --forest-light: #3E5240;
+    --sand: #EFE6D3;
+    --sand-deep: #E1D4B8;
+    --ember: #C1622D;
+    --ember-dark: #A24E22;
+    --paper: #FBF8F2;
+    --ink: #2A2622;
+    --ink-soft: #6B6459;
+    --line: #DCD2BC;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+    min-height:100vh;
+  }
+  .app{
+    width:100%;
+    max-width:460px;
+    min-height:100vh;
+    background: var(--paper);
+    display:flex;
+    flex-direction:column;
+    box-shadow: 0 0 40px rgba(43,59,46,0.12);
+  }
+
+  header{
+    background: var(--forest);
+    color: var(--sand);
+    padding: 22px 20px 18px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    right:-30px; top:-30px;
+    width:140px; height:140px;
+    border-radius:50%;
+    background: var(--forest-light);
+    opacity:0.5;
+  }
+  .eyebrow{
+    font-size:12px;
+    color: #C9D3C4;
+    letter-spacing: 0.02em;
+    margin:0 0 4px;
+    position:relative;
+  }
+  h1{
+    font-family:'Zen Old Mincho', serif;
+    font-size: 22px;
+    font-weight:600;
+    margin:0 0 6px;
+    position:relative;
+  }
+  .sub{
+    font-size:13px;
+    color:#D8DFCF;
+    margin:0;
+    line-height:1.6;
+    position:relative;
+    max-width:320px;
+  }
+
+  .chips{
+    display:flex;
+    gap:8px;
+    padding:14px 16px;
+    overflow-x:auto;
+    background: var(--sand-deep);
+    border-bottom:1px solid var(--line);
+  }
+  .chip{
+    flex:0 0 auto;
+    background: var(--paper);
+    border:1px solid var(--line);
+    color: var(--forest);
+    font-size:12.5px;
+    padding:8px 13px;
+    border-radius:999px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition: background .15s, transform .1s;
+  }
+  .chip:hover{ background:#fff; }
+  .chip:active{ transform: scale(0.97); }
+
+  .chat{
+    flex:1;
+    padding:20px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    overflow-y:auto;
+  }
+  .msg{
+    max-width:85%;
+    padding:12px 14px;
+    border-radius:14px;
+    font-size:14.5px;
+    line-height:1.75;
+    white-space:pre-wrap;
+  }
+  .msg.bot{
+    align-self:flex-start;
+    background: var(--sand);
+    border: 1px solid var(--line);
+    border-top-left-radius:4px;
+    color: var(--ink);
+  }
+  .msg.user{
+    align-self:flex-end;
+    background: var(--ember);
+    color: #fff;
+    border-top-right-radius:4px;
+  }
+  .msg.bot.thinking{
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .msg.error{
+    align-self:flex-start;
+    background:#F6E4DD;
+    border:1px solid #E3B7A4;
+    color:#7A3319;
+  }
+
+  .inputbar{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    padding:12px 14px;
+    border-top:1px solid var(--line);
+    background: var(--paper);
+  }
+  textarea{
+    flex:1;
+    resize:none;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:11px 14px;
+    font-family:inherit;
+    font-size:14.5px;
+    line-height:1.5;
+    max-height:120px;
+    background:#fff;
+    color: var(--ink);
+  }
+  textarea:focus{ outline:2px solid var(--forest-light); outline-offset:-1px; }
+  button.send{
+    background: var(--forest);
+    color:#fff;
+    border:none;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    cursor:pointer;
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: background .15s;
+  }
+  button.send:hover{ background: var(--forest-light); }
+  button.send:disabled{ background:#B9B2A3; cursor:not-allowed; }
+
+  .footnote{
+    font-size:11px;
+    color: var(--ink-soft);
+    text-align:center;
+    padding:8px 16px 14px;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <p class="eyebrow">MOBBY R2B ご利用サポート</p>
+    <h1>キャンピングカー相談窓口</h1>
+    <p class="sub">設備の使い方や困りごとを、車両マニュアルをもとにAIがお答えします。</p>
+  </header>
+
+  <div class="chips" id="chips">
+    <div class="chip">ベッドは何か所ある？サイズは？</div>
+    <div class="chip">エアコンは一晩中つけっぱなしにできる？</div>
+    <div class="chip">車内モニター(Screen AI)の音声操作は？</div>
+    <div class="chip">車両の寸法・最小回転半径は？</div>
+    <div class="chip">外部電源の繋ぎ方は？</div>
+  </div>
+
+  <div class="chat" id="chat">
+    <div class="msg bot">こんにちは。MOBBY R2Bの設備マニュアルとカーナビ(OTTOCAST Screen AI)の使い方について、なんでも聞いてください。上のボタンからも質問できます。</div>
+  </div>
+
+  <div class="inputbar">
+    <textarea id="input" rows="1" placeholder="質問を入力…"></textarea>
+    <button class="send" id="sendBtn" aria-label="送信">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12L20 4L13 20L11 13L4 12Z" stroke="white" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <p class="footnote">このチャットはプロトタイプです。ガス・電装系のトラブルなど安全に関わる場合は、必ずオーナーへ直接ご連絡ください。</p>
+</div>
+
+<script>
+const chatEl = document.getElementById('chat');
+const inputEl = document.getElementById('input');
+const sendBtn = document.getElementById('sendBtn');
+const chipsEl = document.getElementById('chips');
+
+let history = [];
+
+function addMessage(role, text, extraClass){
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'bot') + (extraClass ? ' ' + extraClass : '');
+  div.textContent = text;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+  return div;
+}
+
+async function sendMessage(text){
+  if(!text.trim()) return;
+  addMessage('user', text);
+  history.push({role:'user', content: text});
+  inputEl.value = '';
+  autoResize();
+  sendBtn.disabled = true;
+
+  const thinkingEl = addMessage('bot', '考え中…', 'thinking');
+
+  try{
+    // サーバー経由で呼び出す。APIキーはサーバー側の環境変数にのみ存在する。
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
+    });
+    const data = await response.json();
+
+    thinkingEl.remove();
+
+    if(!response.ok){
+      addMessage('bot', data.error || '通信エラーが発生しました。時間をおいて再度お試しください。', 'error');
+      return;
+    }
+
+    addMessage('bot', data.answer);
+    history.push({role:'assistant', content: data.answer});
+  }catch(err){
+    thinkingEl.remove();
+    addMessage('bot', '通信エラーが発生しました。時間をおいて再度お試しください。', 'error');
+    console.error(err);
+  }finally{
+    sendBtn.disabled = false;
+  }
+}
+
+function autoResize(){
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+}
+
+let isComposing = false;
+inputEl.addEventListener('compositionstart', () => { isComposing = true; });
+inputEl.addEventListener('compositionend', () => { isComposing = false; });
+
+inputEl.addEventListener('input', autoResize);
+inputEl.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' && !e.shiftKey && !isComposing && e.keyCode !== 229){
+    e.preventDefault();
+    sendMessage(inputEl.value);
+  }
+});
+sendBtn.addEventListener('click', ()=> sendMessage(inputEl.value));
+
+chipsEl.addEventListener('click', (e)=>{
+  const chip = e.target.closest('.chip');
+  if(chip) sendMessage(chip.textContent);
+});
+</script>
+</body>
+</html>
