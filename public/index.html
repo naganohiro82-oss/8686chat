@@ -6,25 +6,25 @@
 <title>MOBBY R2B 利用サポートチャット</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --forest: #2B3B2E;
-    --forest-light: #3E5240;
-    --sand: #EFE6D3;
-    --sand-deep: #E1D4B8;
-    --ember: #C1622D;
-    --ember-dark: #A24E22;
-    --paper: #FBF8F2;
-    --ink: #2A2622;
-    --ink-soft: #6B6459;
-    --line: #DCD2BC;
+    --sky: #2E8FC4;
+    --sky-deep: #1F6E9C;
+    --sun: #F5B942;
+    --sun-soft: #FCE8B8;
+    --coral: #EF6C4A;
+    --coral-dark: #C6522F;
+    --paper: #FFFDF7;
+    --ink: #22303B;
+    --ink-soft: #62727D;
+    --line: #E3DCC9;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
     font-family:'Zen Kaku Gothic New', sans-serif;
-    background: var(--sand);
+    background: var(--sun-soft);
     color: var(--ink);
     display:flex;
     justify-content:center;
@@ -41,42 +41,65 @@
   }
 
   header{
-    background: var(--forest);
-    color: var(--sand);
-    padding: 22px 20px 18px;
+    background: var(--sky);
+    color: var(--sun-soft);
+    padding: 20px 0 0;
     position:relative;
     overflow:hidden;
   }
   header::after{
     content:"";
     position:absolute;
-    right:-30px; top:-30px;
-    width:140px; height:140px;
+    right:-40px; top:-50px;
+    width:160px; height:160px;
     border-radius:50%;
-    background: var(--forest-light);
-    opacity:0.5;
+    background: var(--sky-deep);
+    opacity:0.45;
+  }
+  .header-inner{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:8px;
+    padding: 2px 16px 0 20px;
+    position:relative;
+  }
+  .header-text{
+    max-width:58%;
+    padding-bottom:20px;
+  }
+  .header-hero{
+    flex:0 0 auto;
+    width:160px;
+    height:auto;
+    display:block;
+    object-fit:contain;
+    object-position:bottom right;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.18));
+    position:relative;
+    bottom:-4px;
   }
   .eyebrow{
     font-size:12px;
-    color: #C9D3C4;
+    color: #D9EEFA;
     letter-spacing: 0.02em;
     margin:0 0 4px;
     position:relative;
   }
   h1{
-    font-family:'Zen Old Mincho', serif;
+    font-family:'Zen Maru Gothic', sans-serif;
     font-size: 22px;
-    font-weight:600;
-    margin:0 0 6px;
+    font-weight:700;
+    margin:0 0 8px;
     position:relative;
+    line-height:1.3;
   }
   .sub{
-    font-size:13px;
-    color:#D8DFCF;
+    font-size:12.5px;
+    color:#EAF5FB;
     margin:0;
     line-height:1.6;
     position:relative;
-    max-width:320px;
   }
 
   .chips{
@@ -84,14 +107,14 @@
     gap:8px;
     padding:14px 16px;
     overflow-x:auto;
-    background: var(--sand-deep);
+    background: #FDEDE6;
     border-bottom:1px solid var(--line);
   }
   .chip{
     flex:0 0 auto;
     background: var(--paper);
     border:1px solid var(--line);
-    color: var(--forest);
+    color: var(--sky);
     font-size:12.5px;
     padding:8px 13px;
     border-radius:999px;
@@ -120,14 +143,14 @@
   }
   .msg.bot{
     align-self:flex-start;
-    background: var(--sand);
+    background: var(--sun-soft);
     border: 1px solid var(--line);
     border-top-left-radius:4px;
     color: var(--ink);
   }
   .msg.user{
     align-self:flex-end;
-    background: var(--ember);
+    background: var(--coral);
     color: #fff;
     border-top-right-radius:4px;
   }
@@ -163,9 +186,9 @@
     background:#fff;
     color: var(--ink);
   }
-  textarea:focus{ outline:2px solid var(--forest-light); outline-offset:-1px; }
+  textarea:focus{ outline:2px solid var(--sky-deep); outline-offset:-1px; }
   button.send{
-    background: var(--forest);
+    background: var(--sky);
     color:#fff;
     border:none;
     width:42px;
@@ -178,7 +201,7 @@
     justify-content:center;
     transition: background .15s;
   }
-  button.send:hover{ background: var(--forest-light); }
+  button.send:hover{ background: var(--sky-deep); }
   button.send:disabled{ background:#B9B2A3; cursor:not-allowed; }
 
   .footnote{
@@ -193,9 +216,13 @@
 <body>
 <div class="app">
   <header>
-    <p class="eyebrow">MOBBY R2B ご利用サポート</p>
-    <h1>キャンピングカー相談窓口</h1>
-    <p class="sub">設備の使い方や困りごとを、車両マニュアルをもとにAIがお答えします。</p>
+    <div class="header-inner">
+      <div class="header-text">
+        <h1>8686号専用チャットAI</h1>
+        <p class="sub">設備の使い方や困りごとをAIがお答えします。</p>
+      </div>
+      <img class="header-hero" src="mobby-hero.png" alt="MOBBY R2B 8686号車">
+    </div>
   </header>
 
   <div class="chips" id="chips">
@@ -207,7 +234,7 @@
   </div>
 
   <div class="chat" id="chat">
-    <div class="msg bot">こんにちは。MOBBY R2Bの設備マニュアルとカーナビ(OTTOCAST Screen AI)の使い方について、なんでも聞いてください。上のボタンからも質問できます。</div>
+    <div class="msg bot">やあ、旅は順調ですか？MOBBY R2Bの設備やカーナビ(OTTOCAST Screen AI)のことなら何でも聞いてください。上のボタンからも選べます。</div>
   </div>
 
   <div class="inputbar">
@@ -247,7 +274,6 @@ async function sendMessage(text){
   const thinkingEl = addMessage('bot', '考え中…', 'thinking');
 
   try{
-    // サーバー経由で呼び出す。APIキーはサーバー側の環境変数にのみ存在する。
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
